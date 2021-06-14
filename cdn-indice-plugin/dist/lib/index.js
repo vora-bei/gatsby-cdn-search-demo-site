@@ -76,11 +76,10 @@ var path_1 = __importDefault(require("path"));
 var fs_1 = __importDefault(require("fs"));
 var path_2 = require("path");
 var util_1 = __importDefault(require("util"));
-var LIMIT_SAVE_FILE = 500;
-var writeFile = util_1.default.promisify(fs_1.default.writeFile);
 var mkdir = util_1.default.promisify(fs_1.default.mkdir);
 var rmdir = util_1.default.promisify(fs_1.default.rmdir);
 var exists = util_1.default.promisify(fs_1.default.exists);
+var DATA_CHUNK_SIZE = 100;
 var Engine;
 (function (Engine) {
     Engine["n-gram"] = "n-gram";
@@ -95,8 +94,16 @@ var getEngine = function (engine) {
     }
     throw new Error("Engine " + engine.type + " not found");
 };
+var serializerData = function (data, options) {
+    return JSON.stringify(data);
+    // return JSON.stringify(
+    //     options.dataAttrs
+    //         .filter(attr => options.idAttr !== attr)
+    //         .map(attr => data[attr])
+    // )
+};
 var buildIndex = function (graphql, publicPath, options) { return __awaiter(void 0, void 0, void 0, function () {
-    var graphQL, normalizer, idAttr, indice, siteUrl, engine, chunkSize, id, results, nodes, engine_1, publicPath_1, dataDir_1, indiceDir, rangeIndice_1, i, e_1;
+    var graphQL, normalizer, idAttr, indice, siteUrl, engine, chunkSize, id, results, nodes, engine_1, simpleEngine_1, publicPath_1, indiceDir, rangeIndice, dataIndice;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -108,9 +115,10 @@ var buildIndex = function (graphql, publicPath, options) { return __awaiter(void
                     console.error(results.errors);
                     throw new Error(packageName + " had a problem getting results from GraphQL.");
                 }
-                if (!normalizer) return [3 /*break*/, 21];
+                if (!normalizer) return [3 /*break*/, 10];
                 nodes = normalizer(results);
                 engine_1 = getEngine(options.engine);
+                simpleEngine_1 = new full_text_search_server_static_index_1.SimpleIndice({ id: "data." + id });
                 // console.debug(nodes);
                 nodes.forEach(function (node) {
                     var id = node[idAttr];
@@ -119,6 +127,7 @@ var buildIndex = function (graphql, publicPath, options) { return __awaiter(void
                     }
                     var keys = Array.isArray(indice) ? indice : Object.keys(node);
                     engine_1.add(id, keys.map(function (key) { return node[key]; }));
+                    simpleEngine_1.add(node, id);
                 });
                 publicPath_1 = path_2.join(path_1.default.resolve("./public"), 'cdn-indice');
                 return [4 /*yield*/, exists(publicPath_1)];
@@ -128,58 +137,26 @@ var buildIndex = function (graphql, publicPath, options) { return __awaiter(void
             case 3:
                 _a.sent();
                 _a.label = 4;
-            case 4: return [4 /*yield*/, exists(publicPath_1)];
+            case 4:
+                indiceDir = path_2.join(publicPath_1, 'indice');
+                return [4 /*yield*/, exists(indiceDir)];
             case 5:
                 if (!!(_a.sent())) return [3 /*break*/, 7];
-                return [4 /*yield*/, mkdir(publicPath_1, { recursive: true })];
+                return [4 /*yield*/, mkdir(indiceDir, { recursive: true })];
             case 6:
                 _a.sent();
                 _a.label = 7;
             case 7:
-                dataDir_1 = path_2.join(publicPath_1, 'data');
-                indiceDir = path_2.join(publicPath_1, 'indice');
-                return [4 /*yield*/, exists(indiceDir)];
+                rangeIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: engine_1, chunkSize: chunkSize, id: id });
+                dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: DATA_CHUNK_SIZE, id: "data." + id });
+                return [4 /*yield*/, full_text_search_server_static_index_1.saveSharedIndices(rangeIndice, indiceDir)];
             case 8:
-                if (!!(_a.sent())) return [3 /*break*/, 10];
-                return [4 /*yield*/, mkdir(indiceDir, { recursive: true })];
+                _a.sent();
+                return [4 /*yield*/, full_text_search_server_static_index_1.saveSharedIndices(dataIndice, indiceDir)];
             case 9:
                 _a.sent();
                 _a.label = 10;
-            case 10: return [4 /*yield*/, exists(path_2.join(dataDir_1, id))];
-            case 11:
-                if (!!(_a.sent())) return [3 /*break*/, 13];
-                return [4 /*yield*/, mkdir(path_2.join(dataDir_1, id), { recursive: true })];
-            case 12:
-                _a.sent();
-                _a.label = 13;
-            case 13:
-                rangeIndice_1 = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: engine_1, chunkSize: chunkSize, id: id });
-                i = 0;
-                _a.label = 14;
-            case 14:
-                if (!(i < nodes.length / LIMIT_SAVE_FILE)) return [3 /*break*/, 19];
-                _a.label = 15;
-            case 15:
-                _a.trys.push([15, 17, , 18]);
-                return [4 /*yield*/, Promise.all(nodes.slice(i * LIMIT_SAVE_FILE, (i + 1) * (LIMIT_SAVE_FILE))
-                        .map(function (node) {
-                        return writeFile(path_2.join(dataDir_1, rangeIndice_1.id, "n." + node[idAttr]), JSON.stringify(node));
-                    }))];
-            case 16:
-                _a.sent();
-                return [3 /*break*/, 18];
-            case 17:
-                e_1 = _a.sent();
-                console.log(e_1);
-                return [3 /*break*/, 18];
-            case 18:
-                i++;
-                return [3 /*break*/, 14];
-            case 19: return [4 /*yield*/, full_text_search_server_static_index_1.saveSharedIndices(rangeIndice_1, indiceDir)];
-            case 20:
-                _a.sent();
-                _a.label = 21;
-            case 21: return [2 /*return*/];
+            case 10: return [2 /*return*/];
         }
     });
 }); };

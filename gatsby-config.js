@@ -26,6 +26,7 @@ module.exports = {
         // normalizer function below.
         // Default: all fields
         indice: ['name'],
+        dataAttrs: ['name', 'id'],
 
         normalizer: ({ data }) => {
           let i = 1;

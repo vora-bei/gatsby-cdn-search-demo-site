@@ -14,6 +14,7 @@ export interface IOptions {
     chunkSize: number;
     normalizer: (results: any) => ISerializedNode[];
     idAttr: string;
+    dataAttrs: string[];
     indice?: string[];
 }
 export declare const buildIndex: (graphql: any, publicPath: string, options: IOptions) => Promise<void>;

@@ -1,5 +1,5 @@
 import * as React from "react"
-import { restore, load } from '../../cdn-indice-plugin/dist/browser'
+import { restore, restoreData } from '../../cdn-indice-plugin/dist/browser'
 // styles
 const pageStyles = {
   color: "#232129",
@@ -131,8 +131,9 @@ const IndexPage = () => {
   React.useEffect(()=>{
     (async ()=>{
       const indice = await restore('pages')
+      const indiceData = await restoreData('data.pages')
       const ids = await indice.find("Space");
-      const result = await load('pages', ids);
+      const result = await indiceData.find(ids.slice(15));
       console.log(result);
     })();
   }, [])

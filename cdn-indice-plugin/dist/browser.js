@@ -36,7 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.load = exports.restore = void 0;
+exports.restoreData = exports.restore = void 0;
+var simple_indice_1 = require("full-text-search-server-static-index/dist/simple.indice");
 var ngram_indice_1 = require("full-text-search-server-static-index/dist/ngram.indice");
 var range_linear_indice_1 = require("full-text-search-server-static-index/dist/range.linear.indice");
 var utils_browser_1 = require("full-text-search-server-static-index/dist/utils.browser");
@@ -51,10 +52,15 @@ var restore = function (id) { return __awaiter(void 0, void 0, void 0, function 
     });
 }); };
 exports.restore = restore;
-var load = function (indexId, ids) { return __awaiter(void 0, void 0, void 0, function () {
+var restoreData = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/, Promise.all(ids.map(function (id) { return fetch("/cdn-indice/data/" + indexId + "/n." + id + ".json").then(function (r) { return r.json(); }); }))];
+        return [2 /*return*/, utils_browser_1.restoreSharedIndices({
+                id: id,
+                baseUrl: '/cdn-indice/indice/',
+                deserializeShared: range_linear_indice_1.RangeLinearIndice.lazy,
+                deserialize: simple_indice_1.SimpleIndice.deserialize
+            })];
     });
 }); };
-exports.load = load;
+exports.restoreData = restoreData;
 //# sourceMappingURL=browser.js.map

@@ -1,15 +1,13 @@
 import * as packageJson from "../package.json";
-import { NgramIndice, RangeLinearIndice, saveSharedIndices } from 'full-text-search-server-static-index';
+import { NgramIndice, RangeLinearIndice, SimpleIndice, saveSharedIndices } from 'full-text-search-server-static-index';
 import path from 'path'
 import fs from "fs";
 import { join } from "path";
 import util from "util";
-const LIMIT_SAVE_FILE = 500;
-const writeFile = util.promisify(fs.writeFile);
-
 const mkdir = util.promisify(fs.mkdir);
 const rmdir = util.promisify(fs.rmdir);
 const exists = util.promisify(fs.exists);
+const DATA_CHUNK_SIZE = 100; 
 export interface ISerializedNode {
     [key: string]: any;
 }
@@ -24,6 +22,7 @@ export interface IOptions {
     chunkSize: number;
     normalizer: (results: any) => ISerializedNode[];
     idAttr: string;
+    dataAttrs: string[];
     indice?: string[];
 }
 
@@ -39,6 +38,14 @@ const getEngine = (engine: { type: Engine }) => {
     }
     throw new Error(`Engine ${engine.type} not found`)
 }
+const serializerData = (data: object, options: IOptions) => {
+    return JSON.stringify(data);
+    // return JSON.stringify(
+    //     options.dataAttrs
+    //         .filter(attr => options.idAttr !== attr)
+    //         .map(attr => data[attr])
+    // )
+}
 
 export const buildIndex = async (graphql: any, publicPath: string, options: IOptions) => {
     const { graphQL, normalizer, idAttr, indice, siteUrl, engine, chunkSize, id } = options;
@@ -52,6 +59,7 @@ export const buildIndex = async (graphql: any, publicPath: string, options: IOpt
         const nodes: ISerializedNode[] = normalizer(results);
         //@todo check is array
         const engine = getEngine(options.engine);
+        const simpleEngine = new SimpleIndice({id: `data.${id}`})
         // console.debug(nodes);
         nodes.forEach(node => {
             const id = node[idAttr];
@@ -59,36 +67,23 @@ export const buildIndex = async (graphql: any, publicPath: string, options: IOpt
                 throw new Error(`${packageName} had a problem normalizer results. idAttr is required`);
             }
             const keys = Array.isArray(indice) ? indice : Object.keys(node);
-            engine.add(id, keys.map(key => node[key]))
+            engine.add(id, keys.map(key => node[key]));
+            simpleEngine.add(node, id);
         });
         const publicPath = join(path.resolve("./public"), 'cdn-indice');
         if (await exists(publicPath)) {
             await rmdir(publicPath, { recursive: true });
         }
-        if (!await exists(publicPath)) {
-            await mkdir(publicPath, { recursive: true });
-        }
-        const dataDir = join(publicPath, 'data');
+
         const indiceDir = join(publicPath, 'indice');
         if (!await exists(indiceDir)) {
             await mkdir(indiceDir, { recursive: true });
         }
-        if (!await exists(join(dataDir, id))) {
-            await mkdir(join(dataDir, id), { recursive: true });
-        }
-        const rangeIndice = new RangeLinearIndice({ indice: engine, chunkSize, id });
-        for (let i = 0; i < nodes.length / LIMIT_SAVE_FILE; i++) {
-            try {
-                await Promise.all(nodes.slice(i * LIMIT_SAVE_FILE, (i + 1) * (LIMIT_SAVE_FILE))
-                    .map(node =>
-                        writeFile(join(dataDir, rangeIndice.id, `n.${node[idAttr]}.json`), JSON.stringify(node))
-                    ));
-            } catch (e) {
-                console.log(e);
-            }
 
-        }
+        const rangeIndice = new RangeLinearIndice({ indice: engine, chunkSize, id });
+        const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize: DATA_CHUNK_SIZE, id:`data.${id}` });
         await saveSharedIndices(rangeIndice, indiceDir);
+        await saveSharedIndices(dataIndice, indiceDir);
     }
 
 

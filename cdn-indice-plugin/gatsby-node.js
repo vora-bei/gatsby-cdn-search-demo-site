@@ -29,6 +29,7 @@ exports.pluginOptionsSchema = ({ Joi }) => {
   return Joi.object({
     // Validate that the anonymize option is defined by the user and is a boolean
     idAttr: Joi.string().required(),
+    dataAttrs: Joi.array(),
     graphQL: Joi.string().required(),
     chunkSize: Joi.number(),
     normalizer: Joi.function().required(),
