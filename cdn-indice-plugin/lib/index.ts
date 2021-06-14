@@ -55,7 +55,7 @@ export const buildIndex = async (graphql: any, publicPath: string, options: IOpt
         // console.debug(nodes);
         nodes.forEach(node => {
             const id = node[idAttr];
-            if (!id) {
+            if (id === undefined) {
                 throw new Error(`${packageName} had a problem normalizer results. idAttr is required`);
             }
             const keys = Array.isArray(indice) ? indice : Object.keys(node);

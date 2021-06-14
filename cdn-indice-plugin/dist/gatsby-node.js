@@ -74,7 +74,7 @@ exports.pluginOptionsSchema = function (_a) {
         graphQL: Joi.string().required(),
         chunkSize: Joi.number(),
         normalizer: Joi.function().required(),
-        indice: Joi.string(),
+        indice: Joi.array(),
         engine: Joi.object().required()
     });
 };

@@ -114,7 +114,7 @@ var buildIndex = function (graphql, publicPath, options) { return __awaiter(void
                 // console.debug(nodes);
                 nodes.forEach(function (node) {
                     var id = node[idAttr];
-                    if (!id) {
+                    if (id === undefined) {
                         throw new Error(packageName + " had a problem normalizer results. idAttr is required");
                     }
                     var keys = Array.isArray(indice) ? indice : Object.keys(node);
@@ -163,7 +163,7 @@ var buildIndex = function (graphql, publicPath, options) { return __awaiter(void
                 _a.trys.push([15, 17, , 18]);
                 return [4 /*yield*/, Promise.all(nodes.slice(i * LIMIT_SAVE_FILE, (i + 1) * (LIMIT_SAVE_FILE))
                         .map(function (node) {
-                        return writeFile(path_2.join(dataDir_1, rangeIndice_1.id, "n." + node[idAttr] + ".json"), JSON.stringify(node));
+                        return writeFile(path_2.join(dataDir_1, rangeIndice_1.id, "n." + node[idAttr]), JSON.stringify(node));
                     }))];
             case 16:
                 _a.sent();

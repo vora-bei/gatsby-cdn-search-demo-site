@@ -7,6 +7,7 @@ module.exports = {
     "gatsby-plugin-image",
     {
       resolve:  require.resolve("./cdn-indice-plugin"),
+      chunkSize: 20000,
       options: {
         id: 'pages',
         engine: {
@@ -24,13 +25,16 @@ module.exports = {
         // List of keys to index. The values of the keys are taken from the
         // normalizer function below.
         // Default: all fields
-        index: ['name'],
+        indice: ['name'],
 
-        normalizer: ({ data }) =>
-          data.allMoviesJson.edges.map(({node}) => ({
-            id: node.id,
+        normalizer: ({ data }) => {
+          let i = 1;
+          return data.allMoviesJson.edges.map(({node}) => ({
+            id: i++,
             name: node.name
-          })),
+          }));
+        },
+        
 
         graphQL:`query MyQuery {
           allMoviesJson {
