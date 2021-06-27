@@ -7,7 +7,7 @@ import { restoreSharedIndices } from "full-text-search-server-static-index/dist/
 export const restore = async (id: string) => {
     return restoreSharedIndices<any, any>({
         id,
-        baseUrl: '/cdn-indice/indice/',
+        baseUrl: '/cdn-indice/indice',
         deserializeShared: RangeLinearIndice.lazy,
         deserialize: NgramIndice.deserialize
     })
@@ -15,7 +15,7 @@ export const restore = async (id: string) => {
 export const restoreData = async (id: string) => {
     return restoreSharedIndices<any, any>({
         id,
-        baseUrl: '/cdn-indice/indice/',
+        baseUrl: '/cdn-indice/indice',
         deserializeShared: RangeLinearIndice.lazy,
         deserialize: SimpleIndice.deserialize
     })
