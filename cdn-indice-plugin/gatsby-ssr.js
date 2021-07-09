@@ -15,6 +15,7 @@ exports.onRenderBody = ({
       type="application/json"
       href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'}
       as="fetch"
+      crossorigin
       key={"cdn-base-" + pluginOptions.id}
     />
   ])
