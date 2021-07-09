@@ -17,11 +17,9 @@ const path = require(`path`);
 
 const { buildIndex } = require(`./lib/index`);
 
-const publicPath = path.resolve("./public");
-
 exports.createPages = async ({ graphql }, pluginOptions) => {
   delete pluginOptions.plugins;
-  await buildIndex(graphql, publicPath, pluginOptions);
+  await buildIndex(graphql, pluginOptions);
 }
 
 exports.pluginOptionsSchema = ({ Joi }) => {
@@ -33,7 +31,11 @@ exports.pluginOptionsSchema = ({ Joi }) => {
     graphQL: Joi.string().required(),
     chunkSize: Joi.number(),
     normalizer: Joi.function().required(),
-    indice: Joi.array(),
-    engine: Joi.object().required()
+    indices: Joi.array().items(Joi.object({
+      id: Joi.string().required(),
+      column: Joi.string(),
+      columns: Joi.array().items(Joi.string()),
+      type: Joi.string(),
+    }).or('column', 'columns')),
   })
 }

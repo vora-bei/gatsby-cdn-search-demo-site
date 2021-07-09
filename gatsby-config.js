@@ -6,48 +6,65 @@ module.exports = {
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-image",
     {
-      resolve:  require.resolve("./cdn-indice-plugin"),
-      chunkSize: 20000,
+      resolve: require.resolve("./cdn-indice-plugin"),
       options: {
-        id: 'pages',
-        engine: {
-          type: "n-gram",
-          actuationLimit: 2,
-          actuationLimitAuto: true,
-          gramLen: 3,
-          toLowcase: true,
-        },
-
-     // Field used as the reference value for each document.
-        // Default: 'id'.
+        id: 'countries',
+        chunkSize: 20000,
+        indices: [
+          { id: 'name', column: 'name', },
+          { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, columns: ['name'], }
+        ],
         idAttr: 'id',
-
-        // List of keys to index. The values of the keys are taken from the
-        // normalizer function below.
-        // Default: all fields
-        indice: ['name'],
         dataAttrs: ['name', 'id'],
-
         normalizer: ({ data }) => {
           let i = 1;
-          return data.allMoviesJson.edges.map(({node}) => ({
-            id: i++,
-            name: node.name
-          }));
+          return data.allMoviesJson.edges
+            .map(({ node }) => ({ id: i++, name: node.name }));
         },
-        
-
-        graphQL:`query MyQuery {
-          allMoviesJson {
-            edges {
-              node {
-                name
-                id
-              }
+        graphQL: `query MyQuery {
+           allMoviesJson { edges { node { name id } } } 
+          }`
+      }
+    },
+    {
+      resolve: require.resolve("./cdn-indice-plugin"),
+      options: {
+        id: 'cars',
+        chunkSize: 20000,
+        indices: [
+          { id: 'model', column: 'model', },
+          { id: 'make', column: 'make', },
+          { id: 'year', column: 'year', },
+          { id: 'state', column: 'state', },
+          { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, 
+          columns: ['model', 'make', 'color'], }
+        ],
+        idAttr: 'id',
+        normalizer: ({ data }) => {
+          return data.allSqliteCars.edges
+            .map(({ node: {id, ...node} }) => ({ id: id.replace('sqlite__Cars__'), ...node }));
+        },
+        graphQL: `query MyQuery {
+          allSqliteCars(skip: 50000) {
+          edges {
+            node {
+              id
+              color
+              make
+              mmr
+              model
+              seller
+              sellingprice
+              state
+              transmission
+              trim
+              vin
+              year
             }
           }
-        }`
-      },
+        }
+      }`
+      }
     },
     {
       resolve: "gatsby-plugin-manifest",
@@ -57,7 +74,7 @@ module.exports = {
     },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    `gatsby-transformer-json`,
+    "gatsby-transformer-json",
     {
       resolve: "gatsby-source-filesystem",
       options: {
@@ -73,6 +90,19 @@ module.exports = {
         path: `${__dirname}/data/`,
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
+    },
+    {
+      resolve: `gatsby-source-sqlite`,
+      options: {
+        fileName: './data/mydb.sqlite',
+        queries: [
+          {
+            statement: 'SELECT * FROM cars limit 500000',
+            idFieldName: 'id',
+            name: 'cars'
+          }
+        ]
+      }
     }
   ],
 };

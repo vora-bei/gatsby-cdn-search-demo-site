@@ -1,8 +1,6 @@
+import { Engine, ISerializedIndice } from "../browser";
 export interface ISerializedNode {
     [key: string]: any;
-}
-declare enum Engine {
-    "n-gram" = "n-gram"
 }
 export interface IOptions {
     id: string;
@@ -15,8 +13,7 @@ export interface IOptions {
     normalizer: (results: any) => ISerializedNode[];
     idAttr: string;
     dataAttrs: string[];
-    indice?: string[];
+    indices: ISerializedIndice[];
 }
-export declare const buildIndex: (graphql: any, publicPath: string, options: IOptions) => Promise<void>;
-export {};
+export declare const buildIndex: (graphql: any, options: IOptions) => Promise<void>;
 //# sourceMappingURL=index.d.ts.map

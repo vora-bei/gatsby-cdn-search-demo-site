@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { restore, restoreData } from '../../cdn-indice-plugin/dist/browser'
+import { restoreDb } from '../../cdn-indice-plugin/dist/browser'
 // styles
 const pageStyles = {
   color: "#232129",
@@ -41,7 +41,6 @@ const currentButtonStyle = {
 // markup
 const IndexPage = () => {
   const offset = 10;
-  const [data, setData] = useState(null);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(0);
   const [list, setList] = useState([]);
@@ -50,23 +49,19 @@ const IndexPage = () => {
   const [loading, setLoading] = useState(false);
   useEffect(()=>{
     (async ()=>{
-      const indiceData = await restoreData('data.pages');
-      setData(indiceData);
     })();
   }, []);
   useEffect(()=>{
     (async ()=> {
-      if (data) {
         setLoading(true);
-        const indice = await restore('pages');
-        const ids = await indice.find(search);
-        const result = await data?.find(ids.slice(page * offset, ((page * offset) + (offset - 1)))) || [];
+        const db = await restoreDb('countries');
+        const result = await db.find({$ngram: search}, undefined, page * offset, offset);
+        console.log(result)
         setList(result);
-        setPages(Math.ceil(ids.length / offset));
+        setPages(100);
         setLoading(false);
-      }
     })();
-  }, [search, data, page])
+  }, [search, page])
   const onKeyPress = (event) => {
     const value = event.target.value;
     if (event.key === 'Enter') {
@@ -77,16 +72,6 @@ const IndexPage = () => {
     const value = event.target.value;
     setSearchTemp(value);
   }
-  const pagination = pages > 0 ? Array(pages).fill(0).map((_, index) => (
-    <li key={`${index}-pagination`}>
-      <button
-        onClick={() => setPage(index)}
-        style={page === index ? currentButtonStyle : buttonStyle}
-      >
-        {index}
-      </button>
-    </li>
-  )) : null;
   console.log('page ', page)
   console.log('pages ', pages)
   return (
@@ -110,9 +95,6 @@ const IndexPage = () => {
             </span>
           </li>
         )))}
-      </ul>
-      <ul style={paginationStyle} >
-        {pagination}
       </ul>
       <img
         alt="Gatsby G Logo"

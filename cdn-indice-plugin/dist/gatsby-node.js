@@ -50,7 +50,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.onPreInit = function (_, pluginOptions) { return console.log("Loaded gatsby-starter-plugin"); };
 var path = require("path");
 var buildIndex = require("./lib/index").buildIndex;
-var publicPath = path.resolve("./public");
 exports.createPages = function (_a, pluginOptions) {
     var graphql = _a.graphql;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -58,7 +57,7 @@ exports.createPages = function (_a, pluginOptions) {
             switch (_b.label) {
                 case 0:
                     delete pluginOptions.plugins;
-                    return [4 /*yield*/, buildIndex(graphql, publicPath, pluginOptions)];
+                    return [4 /*yield*/, buildIndex(graphql, pluginOptions)];
                 case 1:
                     _b.sent();
                     return [2 /*return*/];
@@ -75,8 +74,12 @@ exports.pluginOptionsSchema = function (_a) {
         graphQL: Joi.string().required(),
         chunkSize: Joi.number(),
         normalizer: Joi.function().required(),
-        indice: Joi.array(),
-        engine: Joi.object().required()
+        indices: Joi.array().items(Joi.object({
+            id: Joi.string().required(),
+            column: Joi.string(),
+            columns: Joi.array().items(Joi.string()),
+            type: Joi.string(),
+        }).or('column', 'columns')),
     });
 };
 //# sourceMappingURL=gatsby-node.js.map
