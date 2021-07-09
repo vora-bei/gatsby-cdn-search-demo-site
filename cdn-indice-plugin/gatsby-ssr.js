@@ -6,18 +6,16 @@
 // You can delete this file if you're not using it
 const React = require("react")
 
-const injectScripts = (pluginOptions)=>{
-    return  `const __cdn_base_indices_${pluginOptions.id}=${JSON.stringify(pluginOptions.indices)};`
-}
-
 exports.onRenderBody = ({
-    setHeadComponents,
-  }, pluginOptions) => {
-    setHeadComponents([
-    <script
-     key="cdn-base-${pluginOptions.id}"
-     dangerouslySetInnerHTML={{__html: injectScripts(pluginOptions)}}
-     />
-     ])
-  }
+  setHeadComponents,
+}, pluginOptions) => {
+  setHeadComponents([
+    <link
+      rel="preload"
+      href={"cdn-indice/" + pluginOptions.id + "/indices" + pluginOptions.id + '.json'}
+      as="style"
+      key={"cdn-base-" + pluginOptions.id}
+    />
+  ])
+}
 
