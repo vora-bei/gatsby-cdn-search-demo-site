@@ -40,7 +40,7 @@ const currentButtonStyle = {
 
 // markup
 const IndexPage = () => {
-  const offset = 10;
+  const offset = 30;
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(0);
   const [list, setList] = useState([]);
@@ -55,6 +55,9 @@ const IndexPage = () => {
     (async ()=> {
         setLoading(true);
         const db = await restoreDb('cars');
+        if(search.length<3){
+          return;
+        }
         const result = await db.find({$ngram: search}, undefined, page * offset, offset);
         console.log(result)
         setList(result);

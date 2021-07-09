@@ -55,6 +55,9 @@ const IndexPage = () => {
     (async ()=> {
         setLoading(true);
         const db = await restoreDb('countries');
+        if(search.length<3){
+          return;
+        }
         const result = await db.find({$ngram: search}, undefined, page * offset, offset);
         console.log(result)
         setList(result);
