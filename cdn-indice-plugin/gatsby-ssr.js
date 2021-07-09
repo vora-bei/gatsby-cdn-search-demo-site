@@ -13,7 +13,7 @@ exports.onRenderBody = ({
     <link
       rel="preload"
       href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'}
-      as="style"
+      as="fetch"
       key={"cdn-base-" + pluginOptions.id}
     />
   ])
