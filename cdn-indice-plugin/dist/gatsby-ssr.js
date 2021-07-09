@@ -9,7 +9,7 @@ var React = require("react");
 exports.onRenderBody = function (_a, pluginOptions) {
     var setHeadComponents = _a.setHeadComponents;
     setHeadComponents([
-        <link rel="preload" href={"cdn-indice/" + pluginOptions.id + "/indices" + pluginOptions.id + '.json'} as="style" key={"cdn-base-" + pluginOptions.id}/>
+        <link rel="preload" href={"cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'} as="style" key={"cdn-base-" + pluginOptions.id}/>
     ]);
 };
 //# sourceMappingURL=gatsby-ssr.js.map
