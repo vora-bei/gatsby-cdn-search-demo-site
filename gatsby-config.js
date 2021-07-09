@@ -97,7 +97,7 @@ module.exports = {
         fileName: './data/mydb.sqlite',
         queries: [
           {
-            statement: 'SELECT * FROM cars limit 500000',
+            statement: 'SELECT * FROM cars limit 100000',
             idFieldName: 'id',
             name: 'cars'
           }
