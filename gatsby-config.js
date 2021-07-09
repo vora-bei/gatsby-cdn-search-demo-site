@@ -42,7 +42,7 @@ module.exports = {
         idAttr: 'id',
         normalizer: ({ data }) => {
           return data.allSqliteCars.edges
-            .map(({ node: {id, ...node} }) => ({ id: id.replace('sqlite__Cars__'), ...node }));
+            .map(({ node: {id, ...node} }) => ({ id: id.replace('sqlite__Cars__',''), ...node }));
         },
         graphQL: `query MyQuery {
           allSqliteCars(skip: 50000) {

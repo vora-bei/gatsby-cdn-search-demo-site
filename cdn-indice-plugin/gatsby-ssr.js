@@ -12,6 +12,7 @@ exports.onRenderBody = ({
   setHeadComponents([
     <link
       rel="preload"
+      type="application/json"
       href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'}
       as="fetch"
       key={"cdn-base-" + pluginOptions.id}
