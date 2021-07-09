@@ -9,7 +9,6 @@ const mkdir = util.promisify(fs.mkdir);
 const rmdir = util.promisify(fs.rmdir);
 const exists = util.promisify(fs.exists);
 const writeFile = util.promisify(fs.writeFile);
-const DATA_CHUNK_SIZE = 100;
 export interface ISerializedNode {
     [key: string]: any;
 }
@@ -64,7 +63,7 @@ export const buildIndex = async (graphql: any, options: IOptions) => {
             const rangeIndice = new RangeLinearIndice({ indice, chunkSize, id });
             await saveSharedIndices(rangeIndice, indiceDir);
         }));
-        const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize: DATA_CHUNK_SIZE, id: `data.${id}` });
+        const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize, id: `data.${id}` });
         await writeFile(join(indiceDir,`indices.${id}.json`), JSON.stringify(indices));
         await saveSharedIndices(dataIndice, indiceDir);
     }

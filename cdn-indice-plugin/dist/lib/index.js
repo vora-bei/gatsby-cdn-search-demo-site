@@ -81,7 +81,6 @@ var mkdir = util_1.default.promisify(fs_1.default.mkdir);
 var rmdir = util_1.default.promisify(fs_1.default.rmdir);
 var exists = util_1.default.promisify(fs_1.default.exists);
 var writeFile = util_1.default.promisify(fs_1.default.writeFile);
-var DATA_CHUNK_SIZE = 100;
 var packageName = packageJson.name;
 var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, void 0, function () {
     var graphQL, normalizer, idAttr, indices, chunkSize, id, results, nodes, simpleEngine_1, instanceIndices_1, publicPath, indiceDir_1, dataIndice;
@@ -144,7 +143,7 @@ var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, 
                     }))];
             case 6:
                 _a.sent();
-                dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: DATA_CHUNK_SIZE, id: "data." + id });
+                dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: chunkSize, id: "data." + id });
                 return [4 /*yield*/, writeFile(path_2.join(indiceDir_1, "indices." + id + ".json"), JSON.stringify(indices))];
             case 7:
                 _a.sent();
