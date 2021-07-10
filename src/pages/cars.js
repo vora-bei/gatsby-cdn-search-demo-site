@@ -79,11 +79,9 @@ const IndexPage = () => {
   console.log('pages ', pages)
   return (
     <main style={pageStyles}>
-      <title>Home Page</title>
+      <title>Cars</title>
       <h1 style={headingStyles}>
-        Congratulations
-        <br />
-        <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
+      Cars
       </h1>
       <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'поиск'} />
         <ul style={listStyles}>
