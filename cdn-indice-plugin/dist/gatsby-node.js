@@ -79,6 +79,10 @@ exports.pluginOptionsSchema = function (_a) {
             column: Joi.string(),
             columns: Joi.array().items(Joi.string()),
             type: Joi.string(),
+            actuationLimit: Joi.number(),
+            actuationLimitAuto: Joi.boolean(),
+            gramLen: Joi.number(),
+            toLowcase: Joi.boolean(),
         }).or('column', 'columns')),
     });
 };

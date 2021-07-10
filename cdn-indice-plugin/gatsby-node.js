@@ -23,7 +23,7 @@ exports.createPages = async ({ graphql }, pluginOptions) => {
 }
 
 exports.pluginOptionsSchema = ({ Joi }) => {
-  
+
   return Joi.object({
     // Validate that the anonymize option is defined by the user and is a boolean
     idAttr: Joi.string().required(),
@@ -36,6 +36,10 @@ exports.pluginOptionsSchema = ({ Joi }) => {
       column: Joi.string(),
       columns: Joi.array().items(Joi.string()),
       type: Joi.string(),
+      actuationLimit: Joi.number(),
+      actuationLimitAuto: Joi.boolean(),
+      gramLen: Joi.number(),
+      toLowcase: Joi.boolean(),
     }).or('column', 'columns')),
   })
 }
