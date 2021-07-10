@@ -25,7 +25,6 @@
     "gatsby-plugin-offline": "^4.9.0",
     "gatsby-plugin-sharp": "^3.7.0",
     "gatsby-plugin-theme-ui": "^0.9.1",
-    "gatsby-plugin-zopfli": "^2.0.0",
     "gatsby-source-filesystem": "^3.7.1",
     "gatsby-source-sqlite": "^1.0.0",
     "gatsby-transformer-json": "^3.7.1",
