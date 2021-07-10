@@ -104,6 +104,12 @@ module.exports = {
         ]
       }
     },
-    'gatsby-plugin-offline'
+    'gatsby-plugin-offline',
+    {
+      resolve: 'gatsby-plugin-zopfli',
+      options: {
+        extensions: ['css', 'html', 'js', 'svg', 'json']
+      }
+    }
   ],
 };
