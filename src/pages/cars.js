@@ -75,8 +75,6 @@ const IndexPage = () => {
     const value = event.target.value;
     setSearchTemp(value);
   }
-  console.log('page ', page)
-  console.log('pages ', pages)
   return (
     <main style={pageStyles}>
       <title>Cars</title>
