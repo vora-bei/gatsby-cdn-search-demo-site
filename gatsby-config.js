@@ -30,7 +30,7 @@ module.exports = {
       resolve: require.resolve("./cdn-indice-plugin"),
       options: {
         id: 'cars',
-        chunkSize: 20000,
+        chunkSize: 10000,
         indices: [
           { id: 'model', column: 'model', },
           { id: 'make', column: 'make', },
@@ -104,7 +104,7 @@ module.exports = {
         ]
       }
     },
-    
+
     'gatsby-plugin-offline'
   ],
 };
