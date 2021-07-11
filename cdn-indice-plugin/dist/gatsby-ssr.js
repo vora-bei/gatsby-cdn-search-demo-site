@@ -30,11 +30,11 @@ var React = require("react");
 exports.onRenderBody = function (_a, pluginOptions) {
     var setHeadComponents = _a.setHeadComponents;
     setHeadComponents(__spreadArray([
-        <link rel="preload" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>,
-        <link rel="preload" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/data." + pluginOptions.id + '/index.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>
+        <link rel="prefetch" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>,
+        <link rel="prefetch" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/data." + pluginOptions.id + '/index.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>
     ], __read(pluginOptions.indices.map(function (_a) {
         var id = _a.id;
-        return <link rel="preload" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/" + id + '/index.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>;
+        return <link rel="prefetch" type="application/json" href={"/cdn-indice/" + pluginOptions.id + "/" + id + '/index.json'} as="fetch" crossorigin="anonymous" key={"cdn-base-" + pluginOptions.id}/>;
     }))));
 };
 //# sourceMappingURL=gatsby-ssr.js.map

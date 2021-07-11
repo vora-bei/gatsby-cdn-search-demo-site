@@ -16,10 +16,14 @@ exports.onPreInit = (_, pluginOptions) => console.log("Loaded gatsby-starter-plu
 const path = require(`path`);
 
 const { buildIndex } = require(`./lib/index`);
-
+const executions = new Set();
 exports.createPages = async ({ graphql }, pluginOptions) => {
   delete pluginOptions.plugins;
-  await buildIndex(graphql, pluginOptions);
+  if (!executions.has(pluginOptions.id)) {
+    await buildIndex(graphql, pluginOptions);
+  } else {
+    executions.add(pluginOptions.id);
+  }
 }
 
 exports.pluginOptionsSchema = ({ Joi }) => {
@@ -27,6 +31,7 @@ exports.pluginOptionsSchema = ({ Joi }) => {
   return Joi.object({
     // Validate that the anonymize option is defined by the user and is a boolean
     idAttr: Joi.string().required(),
+    id: Joi.string().required(),
     dataAttrs: Joi.array(),
     graphQL: Joi.string().required(),
     chunkSize: Joi.number(),

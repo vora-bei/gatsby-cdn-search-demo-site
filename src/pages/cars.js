@@ -55,10 +55,12 @@ const IndexPage = () => {
     (async ()=> {
         setLoading(true);
         const db = await restoreDb('cars');
-        if(search.length<3){
-          return;
+        let result;
+        if(search.length>=3){
+          result = await db.find({$ngram: search, year: 2014}, undefined, page * offset, offset);
+        } else {
+          result = await db.find({ year: 2014 }, undefined, page * offset, offset);
         }
-        const result = await db.find({$ngram: search}, undefined, page * offset, offset);
         console.log(result)
         setList(result);
         setPages(100);

@@ -50,6 +50,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.onPreInit = function (_, pluginOptions) { return console.log("Loaded gatsby-starter-plugin"); };
 var path = require("path");
 var buildIndex = require("./lib/index").buildIndex;
+var executions = new Set();
 exports.createPages = function (_a, pluginOptions) {
     var graphql = _a.graphql;
     return __awaiter(void 0, void 0, void 0, function () {
@@ -57,10 +58,15 @@ exports.createPages = function (_a, pluginOptions) {
             switch (_b.label) {
                 case 0:
                     delete pluginOptions.plugins;
+                    if (!!executions.has(pluginOptions.id)) return [3 /*break*/, 2];
                     return [4 /*yield*/, buildIndex(graphql, pluginOptions)];
                 case 1:
                     _b.sent();
-                    return [2 /*return*/];
+                    return [3 /*break*/, 3];
+                case 2:
+                    executions.add(pluginOptions.id);
+                    _b.label = 3;
+                case 3: return [2 /*return*/];
             }
         });
     });
@@ -70,6 +76,7 @@ exports.pluginOptionsSchema = function (_a) {
     return Joi.object({
         // Validate that the anonymize option is defined by the user and is a boolean
         idAttr: Joi.string().required(),
+        id: Joi.string().required(),
         dataAttrs: Joi.array(),
         graphQL: Joi.string().required(),
         chunkSize: Joi.number(),
