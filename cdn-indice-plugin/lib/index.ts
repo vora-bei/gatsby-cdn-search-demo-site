@@ -53,7 +53,6 @@ export const buildIndex = async (graphql: any, options: IOptions) => {
         });
         const publicPath = join(path.resolve("./public"), 'cdn-indice');
 
-
         const indiceDir = join(publicPath, id);
         if (await exists(indiceDir)) {
             await rmdir(indiceDir, { recursive: true });
