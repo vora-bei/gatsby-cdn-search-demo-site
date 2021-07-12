@@ -11,9 +11,6 @@ const headingStyles = {
   marginBottom: 64,
   maxWidth: 320,
 }
-const headingAccentStyles = {
-  color: "#663399",
-}
 const listStyles = {
   marginBottom: 96,
   paddingLeft: 0,
@@ -24,18 +21,9 @@ const listItemStyles = {
   maxWidth: 560,
   marginBottom: 30,
 }
-const paginationStyle = {
-  display: 'flex',
-  listStyleType: 'none',
-}
 const buttonStyle = {
   padding: '6px 8px',
   margin: '0 16px',
-}
-const currentButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: '#013dff',
-  color: 'white',
 }
 
 // markup

@@ -24,19 +24,6 @@ const listItemStyles = {
   maxWidth: 560,
   marginBottom: 30,
 }
-const paginationStyle = {
-  display: 'flex',
-  listStyleType: 'none',
-}
-const buttonStyle = {
-  padding: '6px 8px',
-  margin: '0 16px',
-}
-const currentButtonStyle = {
-  ...buttonStyle,
-  backgroundColor: '#013dff',
-  color: 'white',
-}
 
 // markup
 const IndexPage = () => {
