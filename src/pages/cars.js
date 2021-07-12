@@ -49,7 +49,6 @@ const IndexPage = () => {
         } else {
           result = await db.find({ year: 2014 }, undefined, page * offset, offset);
         }
-        console.log(result)
         setList(result);
         setPages(100);
         setLoading(false);
