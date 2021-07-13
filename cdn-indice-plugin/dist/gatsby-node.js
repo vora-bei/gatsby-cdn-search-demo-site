@@ -93,4 +93,14 @@ exports.pluginOptionsSchema = function (_a) {
         }).or('column', 'columns')),
     });
 };
+exports.onCreateWebpackConfig = function (_a) {
+    var replaceWebpackConfig = _a.actions.replaceWebpackConfig, getConfig = _a.getConfig;
+    var config = getConfig();
+    config.module.rules.push({
+        test: /\.worker\.js$/,
+        use: { loader: 'workerize-loader' }
+    });
+    config.output.globalObject = 'this';
+    replaceWebpackConfig(config);
+};
 //# sourceMappingURL=gatsby-node.js.map

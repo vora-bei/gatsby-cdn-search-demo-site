@@ -5,4 +5,10 @@ export function createPages({ graphql }: {
 export function pluginOptionsSchema({ Joi }: {
     Joi: any;
 }): any;
+export function onCreateWebpackConfig({ actions: { replaceWebpackConfig }, getConfig }: {
+    actions: {
+        replaceWebpackConfig: any;
+    };
+    getConfig: any;
+}): void;
 //# sourceMappingURL=gatsby-node.d.ts.map

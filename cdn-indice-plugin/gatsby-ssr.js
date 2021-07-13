@@ -15,7 +15,6 @@ exports.onRenderBody = ({
       type="application/json"
       href={"/cdn-indice/" + pluginOptions.id + "/indices." + pluginOptions.id + '.json'}
       as="fetch"
-      crossorigin="anonymous"
       key={"cdn-base-" + pluginOptions.id}
     />,
     <link
@@ -23,7 +22,6 @@ exports.onRenderBody = ({
     type="application/json"
     href={"/cdn-indice/" + pluginOptions.id + "/data." + pluginOptions.id + '/index.json'}
     as="fetch"
-    crossorigin="anonymous"
     key={"cdn-base-" + pluginOptions.id}
   />,
     ...pluginOptions.indices.map(({id}) => <link
@@ -31,7 +29,6 @@ exports.onRenderBody = ({
     type="application/json"
     href={"/cdn-indice/" + pluginOptions.id + "/" + id + '/index.json'}
     as="fetch"
-    crossorigin="anonymous"
     key={"cdn-base-" + pluginOptions.id}
   />)
   ])
