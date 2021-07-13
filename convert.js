@@ -5,7 +5,6 @@ const   fs = require('fs');
 
 // create table
 
-
 //db.exec( 'DROP TABLE cars;' );
 
 db.exec( `CREATE TABLE IF NOT EXISTS cars 
