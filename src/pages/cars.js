@@ -21,10 +21,6 @@ const listItemStyles = {
   maxWidth: 560,
   marginBottom: 30,
 }
-const buttonStyle = {
-  padding: '6px 8px',
-  margin: '0 16px',
-}
 
 // markup
 const IndexPage = () => {
