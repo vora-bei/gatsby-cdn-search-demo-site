@@ -40,14 +40,14 @@ const IndexPage = () => {
         const db = await restoreDb('cars');
         let result;
         if(search.length>=3){
-          result = await db.find({$ngram: search, year: 2014}, undefined, page * offset, offset);
+          result = await db.find({$ngram: search, year: 2014}, undefined, 0, offset);
         } else {
-          result = await db.find({ year: 2014 }, undefined, page * offset, offset);
+          result = await db.find({ year: 2014 }, undefined, 0, offset);
         }
         setList(result);
         setLoading(false);
     })();
-  }, [search, page])
+  }, [search])
   const onKeyPress = (event) => {
     const value = event.target.value;
     if (event.key === 'Enter') {
