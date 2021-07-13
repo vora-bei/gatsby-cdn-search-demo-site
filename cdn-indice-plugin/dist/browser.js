@@ -128,7 +128,11 @@ var restoreDb = function (id) { return __awaiter(void 0, void 0, void 0, functio
     var response, indices, indiceInstances, primary, indiceInstancesMap;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch("" + baseUrl + id + "/indices." + id + ".json")];
+            case 0: return [4 /*yield*/, fetch("" + baseUrl + id + "/indices." + id + ".json", {
+                    method: 'GET',
+                    credentials: 'include',
+                    mode: 'no-cors',
+                })];
             case 1:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];

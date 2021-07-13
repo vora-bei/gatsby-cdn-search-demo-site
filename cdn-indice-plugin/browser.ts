@@ -51,7 +51,11 @@ const getIndicePath = (indice: ISerializedIndice) => {
     }
 }
 export const restoreDb = async (id: string) => {
-    const response = await fetch(`${baseUrl}${id}/indices.${id}.json`);
+    const response = await fetch(`${baseUrl}${id}/indices.${id}.json`, {
+        method: 'GET',
+        credentials: 'include',
+        mode: 'no-cors',
+    });
     const indices: ISerializedIndice[] = await response.json();
     const indiceInstances = await Promise.all([
         restoreSharedIndices<any, any>({
