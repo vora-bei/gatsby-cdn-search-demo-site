@@ -29,8 +29,6 @@ const buttonStyle = {
 // markup
 const IndexPage = () => {
   const offset = 30;
-  const [page, setPage] = useState(0);
-  const [pages, setPages] = useState(0);
   const [list, setList] = useState([]);
   const [search, setSearch] = useState('');
   const [searchTemp, setSearchTemp] = useState('');
@@ -47,7 +45,6 @@ const IndexPage = () => {
           result = await db.find({ year: 2014 }, undefined, page * offset, offset);
         }
         setList(result);
-        setPages(100);
         setLoading(false);
     })();
   }, [search, page])
