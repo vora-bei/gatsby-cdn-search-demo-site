@@ -18,7 +18,6 @@
   "dependencies": {
     "better-sqlite3": "^7.4.1",
     "csv-parser": "^3.0.0",
-    "full-text-search-server-static-index": "https://gitlab.com/vora-bei/gatsby-full-text-search-server-static-index-plugin.git",
     "gatsby": "^3.6.2",
     "gatsby-plugin-image": "^1.7.0",
     "gatsby-plugin-manifest": "^3.7.0",
