@@ -66,7 +66,7 @@ const IndexPage = () => {
   console.log('pages ', pages)
   return (
     <main style={pageStyles}>
-      <title>Home Page</title>
+      <title>Movies</title>
       <h1 style={headingStyles}>
         Congratulations
         <br />
