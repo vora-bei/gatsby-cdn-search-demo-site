@@ -35,10 +35,7 @@ const IndexPage = () => {
   const [search, setSearch] = useState('');
   const [searchTemp, setSearchTemp] = useState('');
   const [loading, setLoading] = useState(false);
-  useEffect(()=>{
-    (async ()=>{
-    })();
-  }, []);
+
   useEffect(()=>{
     (async ()=> {
         setLoading(true);
