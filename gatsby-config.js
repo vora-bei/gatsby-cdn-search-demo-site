@@ -32,12 +32,12 @@ module.exports = {
         id: 'cars',
         chunkSize: 5000,
         indices: [
-          { id: 'model', column: 'model', },
-          { id: 'make', column: 'make', },
-          { id: 'year', column: 'year', },
-          { id: 'state', column: 'state', },
+          { id: 'model', column: 'model' },
+          { id: 'make', column: 'make' },
+          { id: 'year', column: 'year' },
+          { id: 'state', column: 'state' },
           { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, 
-          columns: ['model', 'make', 'color'], }
+          columns: ['model', 'make', 'color'] }
         ],
         idAttr: 'id',
         normalizer: ({ data }) => {
