@@ -56,7 +56,7 @@ export const restoreDb = async (id: string) => {
         credentials: 'include',
         mode: 'no-cors',
     });
-    const indices: ISerializedIndice[] = await response.json();
+    const res: { indices: ISerializedIndice[], idAttr: string } = await response.json();
     const indiceInstances = await Promise.all([
         restoreSharedIndices<any, any>({
             id: `data.${id}`,
@@ -64,7 +64,7 @@ export const restoreDb = async (id: string) => {
             deserializeShared: RangeLinearIndice.lazy,
             deserialize: SimpleIndice.deserialize
         }),
-        ...indices.map((indice) => restoreSharedIndices<any, any>({
+        ...res.indices.map((indice) => restoreSharedIndices<any, any>({
             id: indice.id,
             baseUrl: `/cdn-indice/${id}`,
             deserializeShared: RangeLinearIndice.lazy,
@@ -73,12 +73,11 @@ export const restoreDb = async (id: string) => {
     ]);
     const primary = indiceInstances.shift()
     const indiceInstancesMap = new Map(indiceInstances.map((indice) => ([indice.id, indice])));
-    console.log(indiceInstancesMap);
-    console.log(indices);
     return new Db(
         new Schema(
+            res.idAttr,
             primary,
-            indices
+            res.indices
                 .map(
                     indice =>
                         ({ indice: indiceInstancesMap.get(indice.id)!, path: getIndicePath(indice) })

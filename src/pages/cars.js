@@ -37,9 +37,11 @@ const IndexPage = () => {
         let result;
         if(search.length >= 3){
           result = await db.find({$ngram: search, year: 2014}, undefined, 0, offset);
-        } else {
-          result = await db.find({ year: 2014 }, undefined, 0, offset);
-        }
+        } else if(!!search.length){
+          result = await db.find({ year: 2014, model: {$regex: new RegExp(`^${search}`, 'i')} }, undefined, 0, offset);
+        }else {
+          result = await db.find({ year: 2014}, undefined, 0, offset);
+        } 
         setList(result);
         setLoading(false);
     })();

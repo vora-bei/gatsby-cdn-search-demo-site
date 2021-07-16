@@ -144,7 +144,7 @@ var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, 
             case 6:
                 _a.sent();
                 dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: chunkSize / 25, id: "data." + id });
-                return [4 /*yield*/, writeFile(path_2.join(indiceDir_1, "indices." + id + ".json"), JSON.stringify(indices))];
+                return [4 /*yield*/, writeFile(path_2.join(indiceDir_1, "indices." + id + ".json"), JSON.stringify({ indices: indices, idAttr: idAttr }))];
             case 7:
                 _a.sent();
                 return [4 /*yield*/, full_text_search_server_static_index_1.saveSharedIndices(dataIndice, indiceDir_1)];

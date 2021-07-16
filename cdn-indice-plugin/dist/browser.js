@@ -125,7 +125,7 @@ var getIndicePath = function (indice) {
     }
 };
 var restoreDb = function (id) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, indices, indiceInstances, primary, indiceInstancesMap;
+    var response, res, indiceInstances, primary, indiceInstancesMap;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fetch("" + baseUrl + id + "/indices." + id + ".json", {
@@ -137,7 +137,7 @@ var restoreDb = function (id) { return __awaiter(void 0, void 0, void 0, functio
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];
             case 2:
-                indices = _a.sent();
+                res = _a.sent();
                 return [4 /*yield*/, Promise.all(__spreadArray([
                         utils_browser_1.restoreSharedIndices({
                             id: "data." + id,
@@ -145,7 +145,7 @@ var restoreDb = function (id) { return __awaiter(void 0, void 0, void 0, functio
                             deserializeShared: range_linear_indice_1.RangeLinearIndice.lazy,
                             deserialize: simple_indice_1.SimpleIndice.deserialize
                         })
-                    ], __read(indices.map(function (indice) { return utils_browser_1.restoreSharedIndices({
+                    ], __read(res.indices.map(function (indice) { return utils_browser_1.restoreSharedIndices({
                         id: indice.id,
                         baseUrl: "/cdn-indice/" + id,
                         deserializeShared: range_linear_indice_1.RangeLinearIndice.lazy,
@@ -155,9 +155,7 @@ var restoreDb = function (id) { return __awaiter(void 0, void 0, void 0, functio
                 indiceInstances = _a.sent();
                 primary = indiceInstances.shift();
                 indiceInstancesMap = new Map(indiceInstances.map(function (indice) { return ([indice.id, indice]); }));
-                console.log(indiceInstancesMap);
-                console.log(indices);
-                return [2 /*return*/, new db_1.Db(new schema_1.Schema(primary, indices
+                return [2 /*return*/, new db_1.Db(new schema_1.Schema(res.idAttr, primary, res.indices
                         .map(function (indice) {
                         return ({ indice: indiceInstancesMap.get(indice.id), path: getIndicePath(indice) });
                     })))];

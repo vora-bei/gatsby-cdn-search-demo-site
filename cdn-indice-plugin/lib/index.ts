@@ -63,7 +63,7 @@ export const buildIndex = async (graphql: any, options: IOptions) => {
             await saveSharedIndices(rangeIndice, indiceDir);
         }));
         const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize: chunkSize/ 25, id: `data.${id}` });
-        await writeFile(join(indiceDir,`indices.${id}.json`), JSON.stringify(indices));
+        await writeFile(join(indiceDir,`indices.${id}.json`), JSON.stringify({indices, idAttr}));
         await saveSharedIndices(dataIndice, indiceDir);
     }
 
