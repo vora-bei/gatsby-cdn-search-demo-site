@@ -30,20 +30,20 @@ const IndexPage = () => {
   const [searchTemp, setSearchTemp] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(()=>{
-    (async ()=> {
-        setLoading(true);
-        const db = await restoreDb('cars');
-        let result;
-        if(search.length >= 3){
-          result = await db.find({$ngram: search, year: 2014}, undefined, 0, offset);
-        } else if(!!search.length){
-          result = await db.find({ year: 2014, model: {$regex: new RegExp(`^${search}`, 'i')} }, undefined, 0, offset);
-        }else {
-          result = await db.find({ year: 2014}, undefined, 0, offset);
-        } 
-        setList(result);
-        setLoading(false);
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const db = await restoreDb('cars');
+      let result;
+      if (search.length >= 3) {
+        result = await db.find({ $ngram: search, year: { $gte: 2014 } }, undefined, 0, offset);
+      } else if (!!search.length) {
+        result = await db.find({ year: { $gte: 2014 }, model: { $regex: new RegExp(`^${search}`, 'i') } }, undefined, 0, offset);
+      } else {
+        result = await db.find({ year: { $gte: 2014 } }, undefined, 0, offset);
+      }
+      setList(result);
+      setLoading(false);
     })();
   }, [search])
   const onKeyPress = (event) => {
@@ -60,10 +60,10 @@ const IndexPage = () => {
     <main style={pageStyles}>
       <title>Cars</title>
       <h1 style={headingStyles}>
-      Cars
+        Cars
       </h1>
       <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'поиск'} />
-        <ul style={listStyles}>
+      <ul style={listStyles}>
         {loading ? (
           <li style={{ ...listItemStyles }}>
             <span>'...загрузка'</span>
@@ -71,7 +71,7 @@ const IndexPage = () => {
         ) : (list.map(item => (
           <li key={item.id} style={{ ...listItemStyles }}>
             <span>
-                {item.model}  {item.make} {item.color}
+              {item.model}  {item.make} {item.color}
 
 
             </span>
