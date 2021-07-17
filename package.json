@@ -30,6 +30,7 @@
     "gatsby-transformer-sharp": "^3.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "theme-ui": "^0.9.1"
+    "theme-ui": "^0.9.1",
+    "full-text-search-server-static-index": "https://gitlab.com/vora-bei/gatsby-full-text-search-server-static-index-plugin.git"
   }
 }
