@@ -41,13 +41,11 @@ module.exports = {
         ],
         idAttr: 'id',
         normalizer: ({ data }) => {
-          return data.allSqliteCars.edges
-            .map(({ node: {id, ...node} }) => ({ id: id.replace('sqlite__Cars__',''), ...node }));
+          return data.recentCars
+            .map(( {id, ...node} ) => ({ id: id.replace('Car__',''), ...node }));
         },
         graphQL: `query MyQuery {
-          allSqliteCars(skip: 50000) {
-          edges {
-            node {
+          recentCars(cursor: 0, limit: 500000){
               id
               color
               make
@@ -60,8 +58,6 @@ module.exports = {
               trim
               vin
               year
-            }
-          }
         }
       }`
       }
@@ -90,19 +86,6 @@ module.exports = {
         path: `${__dirname}/data/`,
         ignore: [`**/\.*`], // ignore files starting with a dot
       },
-    },
-    {
-      resolve: `gatsby-source-sqlite`,
-      options: {
-        fileName: './data/mydb.sqlite',
-        queries: [
-          {
-            statement: 'SELECT * FROM cars limit 200000',
-            idFieldName: 'id',
-            name: 'cars'
-          }
-        ]
-      }
     },
     'gatsby-plugin-offline'
   ],
