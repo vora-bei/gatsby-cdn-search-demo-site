@@ -10,6 +10,7 @@ module.exports = {
       options: {
         id: 'countries',
         chunkSize: 2000,
+        dataChunkSize: 50,
         indices: [
           { id: 'name', column: 'name', },
           { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, columns: ['name'], }
@@ -31,7 +32,7 @@ module.exports = {
       options: {
         id: 'cars',
         chunkSize: 5000,
-        dataChunkSize: 25,
+        dataChunkSize: 50,
         indices: [
           { id: 'model', column: 'model' },
           { id: 'make', column: 'make' },
