@@ -35,6 +35,7 @@ exports.pluginOptionsSchema = ({ Joi }) => {
     dataAttrs: Joi.array(),
     graphQL: Joi.string().required(),
     chunkSize: Joi.number(),
+    dataChunkSize: Joi.number(),
     normalizer: Joi.function().required(),
     indices: Joi.array().items(Joi.object({
       id: Joi.string().required(),

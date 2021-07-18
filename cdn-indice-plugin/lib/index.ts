@@ -18,6 +18,7 @@ export interface IOptions {
     graphQL: string;
     engine: { type: Engine };
     chunkSize: number;
+    dataChunkSize: number;
     normalizer: (results: any) => ISerializedNode[];
     idAttr: string;
     dataAttrs: string[];
@@ -27,7 +28,7 @@ export interface IOptions {
 const packageName = (packageJson as any).name;
 
 export const buildIndex = async (graphql: any, options: IOptions) => {
-    const { graphQL, normalizer, idAttr, indices, chunkSize, id } = options;
+    const { graphQL, normalizer, idAttr, indices, chunkSize,dataChunkSize = 25, id } = options;
     // @todo check args // some libs
     const results = await graphql(graphQL);
     if (results.errors) {
@@ -62,7 +63,7 @@ export const buildIndex = async (graphql: any, options: IOptions) => {
             const rangeIndice = new RangeLinearIndice({ indice, chunkSize, id });
             await saveSharedIndices(rangeIndice, indiceDir);
         }));
-        const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize: chunkSize / 25, id: `data.${id}` });
+        const dataIndice = new RangeLinearIndice({ indice: simpleEngine, chunkSize: dataChunkSize, id: `data.${id}` });
         await writeFile(join(indiceDir,`indices.${id}.json`), JSON.stringify({indices, idAttr}));
         await saveSharedIndices(dataIndice, indiceDir);
     }

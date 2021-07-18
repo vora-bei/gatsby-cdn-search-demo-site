@@ -83,14 +83,14 @@ var exists = util_1.default.promisify(fs_1.default.exists);
 var writeFile = util_1.default.promisify(fs_1.default.writeFile);
 var packageName = packageJson.name;
 var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, void 0, function () {
-    var graphQL, normalizer, idAttr, indices, chunkSize, id, results, nodes, simpleEngine_1, instanceIndices_1, publicPath, indiceDir_1, dataIndice;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var graphQL, normalizer, idAttr, indices, chunkSize, _a, dataChunkSize, id, results, nodes, simpleEngine_1, instanceIndices_1, publicPath, indiceDir_1, dataIndice;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                graphQL = options.graphQL, normalizer = options.normalizer, idAttr = options.idAttr, indices = options.indices, chunkSize = options.chunkSize, id = options.id;
+                graphQL = options.graphQL, normalizer = options.normalizer, idAttr = options.idAttr, indices = options.indices, chunkSize = options.chunkSize, _a = options.dataChunkSize, dataChunkSize = _a === void 0 ? 25 : _a, id = options.id;
                 return [4 /*yield*/, graphql(graphQL)];
             case 1:
-                results = _a.sent();
+                results = _b.sent();
                 if (results.errors) {
                     console.error(results.errors);
                     throw new Error(packageName + " had a problem getting results from GraphQL.");
@@ -117,14 +117,14 @@ var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, 
                 indiceDir_1 = path_2.join(publicPath, id);
                 return [4 /*yield*/, exists(indiceDir_1)];
             case 2:
-                if (!_a.sent()) return [3 /*break*/, 4];
+                if (!_b.sent()) return [3 /*break*/, 4];
                 return [4 /*yield*/, rmdir(indiceDir_1, { recursive: true })];
             case 3:
-                _a.sent();
-                _a.label = 4;
+                _b.sent();
+                _b.label = 4;
             case 4: return [4 /*yield*/, mkdir(indiceDir_1, { recursive: true })];
             case 5:
-                _a.sent();
+                _b.sent();
                 return [4 /*yield*/, Promise.all(instanceIndices_1.map(function (_a) {
                         var indice = _a.indice, id = _a.id;
                         return __awaiter(void 0, void 0, void 0, function () {
@@ -142,15 +142,15 @@ var buildIndex = function (graphql, options) { return __awaiter(void 0, void 0, 
                         });
                     }))];
             case 6:
-                _a.sent();
-                dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: chunkSize / 25, id: "data." + id });
+                _b.sent();
+                dataIndice = new full_text_search_server_static_index_1.RangeLinearIndice({ indice: simpleEngine_1, chunkSize: dataChunkSize, id: "data." + id });
                 return [4 /*yield*/, writeFile(path_2.join(indiceDir_1, "indices." + id + ".json"), JSON.stringify({ indices: indices, idAttr: idAttr }))];
             case 7:
-                _a.sent();
+                _b.sent();
                 return [4 /*yield*/, full_text_search_server_static_index_1.saveSharedIndices(dataIndice, indiceDir_1)];
             case 8:
-                _a.sent();
-                _a.label = 9;
+                _b.sent();
+                _b.label = 9;
             case 9: return [2 /*return*/];
         }
     });

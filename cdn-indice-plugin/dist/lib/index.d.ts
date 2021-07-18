@@ -10,6 +10,7 @@ export interface IOptions {
         type: Engine;
     };
     chunkSize: number;
+    dataChunkSize: number;
     normalizer: (results: any) => ISerializedNode[];
     idAttr: string;
     dataAttrs: string[];
