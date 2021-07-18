@@ -30,7 +30,7 @@ module.exports = {
       resolve: require.resolve("./cdn-indice-plugin"),
       options: {
         id: 'cars',
-        chunkSize: 1000,
+        chunkSize: 2000,
         indices: [
           { id: 'model', column: 'model' },
           { id: 'make', column: 'make' },
