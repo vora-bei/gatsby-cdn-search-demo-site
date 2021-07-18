@@ -32,7 +32,7 @@ module.exports = {
       options: {
         id: 'cars',
         chunkSize: 6000,
-        dataChunkSize: 50,
+        dataChunkSize: 60,
         indices: [
           { id: 'model', column: 'model' },
           { id: 'make', column: 'make' },
