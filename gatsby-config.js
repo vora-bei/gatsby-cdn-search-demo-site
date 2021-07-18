@@ -9,7 +9,7 @@ module.exports = {
       resolve: require.resolve("./cdn-indice-plugin"),
       options: {
         id: 'countries',
-        chunkSize: 1000,
+        chunkSize: 2000,
         indices: [
           { id: 'name', column: 'name', },
           { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, columns: ['name'], }
