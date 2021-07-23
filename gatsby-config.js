@@ -6,7 +6,7 @@ module.exports = {
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-image",
     {
-      resolve: require.resolve("./cdn-indice-plugin"),
+      resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
         id: 'countries',
         chunkSize: 2000,
@@ -28,7 +28,7 @@ module.exports = {
       }
     },
     {
-      resolve: require.resolve("./cdn-indice-plugin"),
+      resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
         id: 'cars',
         chunkSize: 6000,

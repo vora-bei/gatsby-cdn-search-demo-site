@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { restoreDb } from '../../cdn-indice-plugin/dist/browser'
+import { restoreDb } from 'gatsby-cdn-search-plugin'
 // styles
 const pageStyles = {
   color: "#232129",

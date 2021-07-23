@@ -10,27 +10,24 @@
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
-    "build": "cd ./cdn-indice-plugin && npm run build && cd .. &&  gatsby build",
+    "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "convert": "node convert.js"
+    "clean": "gatsby clean"
   },
   "dependencies": {
-    "better-sqlite3": "^7.4.1",
     "csv-parser": "^3.0.0",
     "gatsby": "^3.6.2",
+    "gatsby-cdn-search-plugin": "0.0.12",
     "gatsby-plugin-image": "^1.7.0",
     "gatsby-plugin-manifest": "^3.7.0",
     "gatsby-plugin-offline": "^4.9.0",
     "gatsby-plugin-sharp": "^3.7.0",
     "gatsby-plugin-theme-ui": "^0.9.1",
     "gatsby-source-filesystem": "^3.7.1",
-    "gatsby-source-sqlite": "^1.0.0",
     "gatsby-transformer-json": "^3.7.1",
     "gatsby-transformer-sharp": "^3.7.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "theme-ui": "^0.9.1",
-    "full-text-search-server-static-index": "https://gitlab.com/vora-bei/gatsby-full-text-search-server-static-index-plugin.git"
+    "theme-ui": "^0.9.1"
   }
 }
