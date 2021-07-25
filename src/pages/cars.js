@@ -62,18 +62,16 @@ const IndexPage = () => {
       <h1 style={headingStyles}>
         Cars
       </h1>
-      <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'поиск'} />
+      <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'search'} />
       <ul style={listStyles}>
         {loading ? (
           <li style={{ ...listItemStyles }}>
-            <span>'...загрузка'</span>
+            <span>...loading</span>
           </li>
         ) : (list.map(item => (
           <li key={item.id} style={{ ...listItemStyles }}>
             <span>
               {item.model}  {item.make} {item.color}
-
-
             </span>
           </li>
         )))}

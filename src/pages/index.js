@@ -34,10 +34,7 @@ const IndexPage = () => {
   const [search, setSearch] = useState('');
   const [searchTemp, setSearchTemp] = useState('');
   const [loading, setLoading] = useState(false);
-  useEffect(()=>{
-    (async ()=>{
-    })();
-  }, []);
+
   useEffect(()=>{
     (async ()=> {
         setLoading(true);
@@ -46,7 +43,6 @@ const IndexPage = () => {
           return;
         }
         const result = await db.find({$ngram: search}, undefined, page * offset, offset);
-        console.log(result)
         setList(result);
         setPages(100);
         setLoading(false);
@@ -62,8 +58,6 @@ const IndexPage = () => {
     const value = event.target.value;
     setSearchTemp(value);
   }
-  console.log('page ', page)
-  console.log('pages ', pages)
   return (
     <main style={pageStyles}>
       <title>Movies</title>
@@ -72,11 +66,11 @@ const IndexPage = () => {
         <br />
         <span style={headingAccentStyles}>— you just made a Gatsby site! </span>
       </h1>
-      <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'поиск'} />
+      <input value={searchTemp} onChange={onChange} onKeyPress={onKeyPress} placeholder={'search'} />
         <ul style={listStyles}>
         {loading ? (
           <li style={{ ...listItemStyles }}>
-            <span>'...загрузка'</span>
+            <span>...loading</span>
           </li>
         ) : (list.map(item => (
           <li key={item.id} style={{ ...listItemStyles }}>
