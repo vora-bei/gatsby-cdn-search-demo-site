@@ -1,0 +1,36 @@
+.page {
+  color: #232129;
+  padding: 96px;
+  font-family: "-apple-system, Roboto, sans-serif, serif";
+}
+.heading {
+  margin-top: 0;
+  margin-bottom: 64px;
+  max-width: 320px;
+}
+.heading_accent {
+  color: #663399;
+}
+.list {
+  padding-left: 0;
+}
+.list_item {
+  font-weight: 300;
+  font-size: 24px;
+  max-width: 560px;
+  margin-bottom: 30px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+}
+.pagination {
+  width: 400px;
+}
+.pagination button + button {
+  margin-right: 24px;
+}
+.button_find {
+  background-color: rebeccapurple;
+  color: white;
+}
