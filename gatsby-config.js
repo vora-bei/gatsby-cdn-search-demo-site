@@ -5,6 +5,7 @@ module.exports = {
   plugins: [
     "gatsby-plugin-theme-ui",
     "gatsby-plugin-image",
+    'gatsby-plugin-postcss',
     {
       resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
@@ -38,7 +39,7 @@ module.exports = {
           { id: 'make', column: 'make' },
           { id: 'year', column: 'year' },
           { id: 'state', column: 'state' },
-          { id: 'ngram', type: "n-gram", actuationLimit: 1, actuationLimitAuto: false, gramLen: 4, toLowcase: true, 
+          { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: false, gramLen: 3, toLowcase: true, 
           columns: ['model', 'make', 'color'] }
         ],
         idAttr: 'id',
