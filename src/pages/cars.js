@@ -7,7 +7,7 @@ import CarTable from '../carTable';
 const searchFetch = async (search, skip = 0, limit = 30) => {
   const db = await restoreDb('cars');
   let result;
-  if (search.length >= 3) {
+  if (search.length >= 4) {
     result = await db.find({ $ngram: search, year: { $gte: 2014 } }, undefined, skip, limit);
   } else if (!!search.length) {
     result = await db.find({
