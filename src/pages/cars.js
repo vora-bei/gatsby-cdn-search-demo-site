@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useMemo } from "react"
 import { restoreDb } from 'gatsby-cdn-search-plugin'
-import CarTable from './carTable';
+import CarTable from '../carTable';
 
 // styles
 
