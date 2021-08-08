@@ -17,7 +17,7 @@
   "dependencies": {
     "csv-parser": "^3.0.0",
     "gatsby": "^3.6.2",
-    "gatsby-cdn-search-plugin": "0.0.18",
+    "gatsby-cdn-search-plugin": "0.0.20",
     "gatsby-plugin-image": "^1.7.0",
     "gatsby-plugin-manifest": "^3.7.0",
     "gatsby-plugin-offline": "^4.9.0",
@@ -30,7 +30,6 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-virtualized": "^9.22.3",
-    "react-waypoint": "^10.1.0",
     "theme-ui": "^0.9.1"
   },
   "devDependencies": {

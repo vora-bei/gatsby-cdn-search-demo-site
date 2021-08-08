@@ -4,22 +4,26 @@ import CarTable from '../carTable';
 
 // styles
 
+
+let cursor;
 const searchFetch = async (search, skip = 0, limit = 30) => {
   const db = await restoreDb('cars');
-  let result;
+  if(cursor){
+    cursor.finish();
+  }
   if (search.length >= 4) {
-    result = await db.find({ $ngram: search, year: { $gte: 2014 } }, undefined, skip, limit);
+    cursor =  db.cursor({ $ngram: search, year: { $gte: 2014 } }, undefined, skip, limit);
   } else if (!!search.length) {
-    result = await db.find({
+    cursor =  db.cursor({
       $or: [
         { model: { $regex: new RegExp(`^${search}`, 'i'), }, },
         { make: { $regex: new RegExp(`^${search}`, 'i'), }, }
       ],
     }, undefined, skip, limit);
   } else {
-    result = await db.find({ year: { $gte: 2014 } }, undefined, skip, limit);
+    cursor = db.cursor({ year: { $gte: 2014 } }, undefined, skip, limit);
   }
-  return result;
+  return await cursor.next();
 }
 
 const initialState = {
@@ -65,12 +69,15 @@ const IndexPage = ({ classes }) => {
     }
   }
 
-  const loadMore = useMemo(() => {
+  useEffect(() => {
     (async () => {
-      let list = await searchFetch(state.search, 30 * (state.page + 1));
-      dispatch({ type: 'loadMore', list });
+      console.log(cursor);
+      if(!!cursor && cursor.hasNext()){
+        let list = await cursor.next();
+        dispatch({ type: 'loadMore', list })
+      }
     })()
-  }, [state.search, state.page])
+  }, [state.page])
   const onChange = (event) => {
     const { value } = event.target;
     dispatch({ type: 'type', value });
