@@ -31,6 +31,7 @@ const CarTable = ({ list, loadMore }) => {
             rowCount={list.length}
             rowHeight={60}
             width={800}
+            className={"table-auto"}
             rowClassName={getRowClassName}
             rowGetter={({ index }) => list[index]}
           >
