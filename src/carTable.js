@@ -2,11 +2,10 @@
 import React from "react";
 import { Column, Table, InfiniteLoader } from "react-virtualized";
 
-const renderHeader = ({ dataKey, sortBy, sortDirection }) => {
+const renderHeader = ({ dataKey }) => {
   return <div className="text-left">{dataKey}</div>;
 };
 
-const cellRenderer = ({ cellData }) => { };
 
 const getRowClassName = ({ index }) => {
   const basicRow = "hover:bg-teal-lightest ";

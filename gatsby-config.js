@@ -9,11 +9,12 @@ module.exports = {
     {
       resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
-        id: 'countries',
+        id: 'movies',
         chunkSize: 2000,
         dataChunkSize: 50,
         indices: [
           { id: 'name', column: 'name', },
+          { id: 'lex', column: 'name', type: "lex" },
           { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, columns: ['name'], }
         ],
         idAttr: 'id',
