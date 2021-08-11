@@ -10,7 +10,7 @@ const makeQuery = (search, type) => {
   } if (!!search.length && type === 'lex') {
     return { $lex: search };
   } else if (!!search.length && type === 'regexp') {
-    return { name: { $regex: new RegExp(`^${search}`, 'i'), }};
+    return  { name: { $regex: new RegExp(`^${search}`, 'i'), }};
   } else {
     return {};
   }
@@ -93,7 +93,7 @@ const IndexPage = () => {
                   <span className="ml-2 text-gray-700">NGRAM</span>
               </label>
 
-              {/* <label className="inline-flex items-center mt-4">
+              <label className="inline-flex items-center mt-4">
                 <input
                   name="type"
                   value="lex"
@@ -102,7 +102,7 @@ const IndexPage = () => {
                   checked={state.indice === "lex"}
                   onChange={onChangeType}
                 /><span className="ml-2 text-gray-700">LEX</span>
-              </label> */}
+              </label>
 
               <label className="inline-flex items-center mt-4">
               <input

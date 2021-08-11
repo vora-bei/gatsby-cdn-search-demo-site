@@ -14,7 +14,7 @@ module.exports = {
         dataChunkSize: 50,
         indices: [
           { id: 'name', column: 'name', },
-          { id: 'lex', column: 'name', type: "lex" },
+          { id: 'lex', column: 'name', type: "text-lex" },
           { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: true, gramLen: 3, toLowcase: true, columns: ['name'], }
         ],
         idAttr: 'id',
