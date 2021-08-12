@@ -1,6 +1,6 @@
 // You can import any component you want as a named export from 'react-virtualized', eg
 import React, { useCallback } from "react";
-import { List, InfiniteLoader } from "react-virtualized";
+import { List, InfiniteLoader, AutoSizer } from "react-virtualized";
 
 
 const MovieList = ({ list, loadMore }) => {
@@ -9,36 +9,39 @@ const MovieList = ({ list, loadMore }) => {
     return (
       <div
         key={key}
-        style={style}
-        className={'border list-none rounded-sm px-3 py-3'}
+        style={{...style, width: '97%'}}
+        className={'border list-none rounded-sm px-3 py-3 ml-3 mr-3 box-border bg-white'}
       >
         {list[index].name}
       </div>
     )
   }, [list])
   return (
-    <div className="bg-white">
-      <InfiniteLoader
-        rowCount={1000000}
-        isRowLoaded={({ index }) => {
-          return !!list[index]
-        }}
-        loadMoreRows={loadMore}
-      >
-        {({ onRowsRendered, registerChild }) => (
-          <List
-            ref={registerChild}
-            height={400}
-            onRowsRendered={onRowsRendered}
-            rowRenderer={rowRenderer}
-            rowCount={list.length}
-            rowHeight={60}
-            width={800}
-            rowGetter={({ index }) => list[index]}
-          />
-        )}
+    <div style={{height: 500}}>
+      <AutoSizer>
+        {({ height, width }) => (
+          <InfiniteLoader
+            rowCount={1000000}
+            isRowLoaded={({ index }) => {
+              return !!list[index]
+            }}
+            loadMoreRows={loadMore}
+          >
+            {({ onRowsRendered, registerChild }) => (
+              <List
+                ref={registerChild}
+                height={height}
+                onRowsRendered={onRowsRendered}
+                rowRenderer={rowRenderer}
+                rowCount={list.length}
+                rowHeight={60}
+                width={width}
+                rowGetter={({ index }) => list[index]}
+              />
+            )}
 
-      </InfiniteLoader>
+          </InfiniteLoader>)}
+      </AutoSizer>
     </div>
   );
 };

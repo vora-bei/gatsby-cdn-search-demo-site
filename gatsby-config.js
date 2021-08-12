@@ -40,7 +40,7 @@ module.exports = {
           { id: 'make', column: 'make' },
           { id: 'year', column: 'year' },
           { id: 'state', column: 'state' },
-          { id: 'ngram', type: "n-gram", actuationLimit: 1, actuationLimitAuto: false, gramLen: 4, toLowcase: true, 
+          { id: 'ngram', type: "n-gram", actuationLimit: 2, actuationLimitAuto: false, gramLen: 3, toLowcase: true, stem: 'english', 
           columns: ['model', 'make', 'color'] }
         ],
         idAttr: 'id',
