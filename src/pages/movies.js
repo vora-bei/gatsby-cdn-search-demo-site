@@ -10,7 +10,7 @@ const makeQuery = (search, type) => {
   } if (!!search.length && type === 'lex') {
     return { $lex: search };
   } else if (!!search.length && type === 'regexp') {
-    return  { name: { $regex: new RegExp(`^${search}`, 'i'), }};
+    return { name: { $regex: new RegExp(`^${search}`, 'i'), } };
   } else {
     return {};
   }
@@ -53,11 +53,12 @@ const IndexPage = () => {
     (async () => {
       dispatch({ type: 'load', list: await cursor.next() });
     })();
-  }, [search, state.indice, cursor])
+  }, [cursor])
 
   useEffect(() => {
     (async () => {
-      if (await cursor.hasNext()) {
+      const hasNext = await cursor.hasNext();
+      if (hasNext) {
         dispatch({ type: 'loadMore', list: await cursor.next() })
       }
     })()
@@ -90,7 +91,7 @@ const IndexPage = () => {
                   checked={state.indice === "ngram"}
                   onChange={onChangeType}
                   className="form-radio h-5 w-5 text-gray-600" />
-                  <span className="ml-2 text-gray-700">NGRAM</span>
+                <span className="ml-2 text-gray-700">NGRAM</span>
               </label>
 
               <label className="inline-flex items-center mt-4">
@@ -105,14 +106,14 @@ const IndexPage = () => {
               </label>
 
               <label className="inline-flex items-center mt-4">
-              <input
+                <input
                   name="type"
                   value="regexp"
                   type="radio"
                   className="form-radio h-5 w-5 text-red-600"
                   checked={state.indice === "regexp"}
                   onChange={onChangeType}
-                  /><span className="ml-2 text-gray-700">REGEXP</span>
+                /><span className="ml-2 text-gray-700">REGEXP</span>
               </label>
             </div>
             {useMemo(() => (<>
