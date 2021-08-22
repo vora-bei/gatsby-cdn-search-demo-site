@@ -1,8 +1,9 @@
 import React, { useReducer, useEffect, useMemo, useCallback } from "react"
-import { useCdnCursorQuery } from 'gatsby-cdn-search-plugin'
+import { useCdnCursorQuery, log } from 'gatsby-cdn-search-plugin'
 import Layout from "../layout";
 import { useDebounce } from 'use-debounce';
 import MovieList from '../movieList';
+log.enableAll();
 
 const makeQuery = (search, type) => {
   if (search.length >= 3 && type === 'ngram') {

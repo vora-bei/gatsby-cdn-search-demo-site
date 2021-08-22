@@ -2,8 +2,8 @@ import React, { useReducer, useEffect, useMemo, useCallback } from "react"
 import CarTable from '../carTable';
 import Layout from '../layout';
 import { useDebounce } from 'use-debounce';
-import { useCdnCursorQuery } from 'gatsby-cdn-search-plugin';
-
+import { useCdnCursorQuery, log } from 'gatsby-cdn-search-plugin';
+log.enableAll();
 const initialState = {
   loading: false,
   search: '',
