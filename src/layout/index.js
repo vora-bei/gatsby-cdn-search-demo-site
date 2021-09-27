@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react"
+import React, { useCallback } from "react"
 import { Link } from "gatsby"
 export default function Layout({ children, title }) {
     const isActive = useCallback(({ isPartiallyCurrent }) => {
