@@ -23,7 +23,7 @@ export default function Layout({ children, title }) {
 
                         <div className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
                             {/* <Link to="/docs" getProps={isActive}>Docs</Link> */}
-                            <Link to="/npm" getProps={isActive}>Npm search demo</Link>
+                            {/* <Link to="/npm" getProps={isActive}>Npm search demo</Link> */}
                             <Link to="/cars" getProps={isActive}>Cars search demo</Link>
                             <Link to="/movies" getProps={isActive}>Films search demo</Link>
                             {/* <Link to="/contacts" getProps={isActive}>Contact</Link> */}

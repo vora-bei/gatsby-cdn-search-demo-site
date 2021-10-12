@@ -15,45 +15,6 @@ module.exports = {
     {
       resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
-        id: 'npm-gatsby-plugin',
-        chunkSize: 2000,
-        dataChunkSize: 50,
-        indices: [
-          { 
-            id: 'ngram',
-            type: "n-gram",
-            actuationLimitAuto: true,
-            toLowcase: true,
-            columns: ['name', 'description'], 
-          }
-        ],
-        idAttr: 'name',
-        dataAttrs: ['name', 'description', 'humanDownloadsLast30Days'],
-        normalizer: ({ data }) => {
-          let i = 1;
-          return data.allNpmPackage.edges
-            .map(({ node }) => ({ 
-              name: node.name,
-              description: node.description || node.name,
-              humanDownloadsLast30Days: node.humanDownloadsLast30Days
-             }));
-        },
-        graphQL: `query allNpmPackagesQuery {
-          allNpmPackage {
-            edges {
-              node {
-                name
-                description
-                humanDownloadsLast30Days
-              }
-            }
-          }
-        }`
-      }
-    },
-    {
-      resolve: require.resolve("gatsby-cdn-search-plugin"),
-      options: {
         id: 'movies',
         chunkSize: 2000,
         dataChunkSize: 50,
