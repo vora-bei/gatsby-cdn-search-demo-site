@@ -7,12 +7,6 @@ module.exports = {
     "gatsby-plugin-image",
     'gatsby-plugin-postcss',
     {
-      resolve: `gatsby-source-npm-package-search`,
-      options: {
-        keywords: ["gatsby", "gatsby-plugin"],
-      },
-    },
-    {
       resolve: require.resolve("gatsby-cdn-search-plugin"),
       options: {
         id: 'movies',
